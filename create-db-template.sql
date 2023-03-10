@@ -18,12 +18,11 @@ CREATE TABLE tbConfig(
 
 CREATE TABLE tbAmbiente(
     idAmbiente INT PRIMARY KEY AUTO_INCREMENT
-    ,idUsuario INT
     ,nomeAmbiente VARCHAR(50)
     ,descAmbiente VARCHAR(150)
-)
+);
 
 CREATE TABLE tbSensor(
     idSensor INT PRIMARY KEY AUTO_INCREMENT,
-    ,portaSensor VARCHAR(6) NOT NULL,
-)
+    ,portaSensor VARCHAR(6) NOT NULL
+);
