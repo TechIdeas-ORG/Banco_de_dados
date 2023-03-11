@@ -5,34 +5,34 @@ USE bd_SMFP;
 
 CREATE TABLE tbUsuario(
     idUsuario INT PRIMARY KEY AUTO_INCREMENT
-    ,nomeUsuario VARCHAR(50) NOT NULL
-    ,emailUsuario VARCHAR(100) NOT NULL UNIQUE
-    ,senhaUsuario VARCHAR(50) NOT NULL
-    ,telefoneUsuario VARCHAR(18) NOT NULL
+    ,nome_usuario VARCHAR(50) NOT NULL
+    ,email_usuario VARCHAR(100) NOT NULL UNIQUE
+    ,senha_usuario VARCHAR(50) NOT NULL
+    ,telefone_usuario VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE tbConfig(
     idConfig INT PRIMARY KEY AUTO_INCREMENT
-    ,tempoDispersao INT
+    ,tempo_dispersao INT
 );
 
 CREATE TABLE tbAmbiente(
     idAmbiente INT PRIMARY KEY AUTO_INCREMENT
-    ,nomeAmbiente VARCHAR(50)
-    ,descAmbiente VARCHAR(150)
+    ,nome_ambiente VARCHAR(50)
+    ,desc_ambiente VARCHAR(150)
 );
 
 CREATE TABLE tbSensor(
     idSensor INT PRIMARY KEY AUTO_INCREMENT
-    ,portaSensor VARCHAR(6) NOT NULL
+    ,porta_sensor VARCHAR(6) NOT NULL
 );
 
-INSERT INTO tbUsuario (nomeUsuario, emailUsuario, senhaUsuario, telefoneUsuario)
+INSERT INTO tbUsuario (nome_usuario, email_usuario, senha_usuario, telefone_usuario)
 VALUES ('Admin', 'admin@techIdeas.com', 'admin', '(11) 9999-9999')
        ,('Itaquera', 'itaquera@shopping.com', 'itaquera123', '(11) 1111-1111')
        ,('Aricanduva', 'aricanduva@shopping.com', 'aricanduva123', '(11) 2222-2222');
 
-INSERT INTO tbAmbiente (nomeAmbiente, descAmbiente)
+INSERT INTO tbAmbiente (nome_ambiente, desc_ambiente)
 VALUES ('Praça de Alimentação', 'Área de alimentação com diversas opções de restaurantes.')
     ,('Cinema', 'Salas de cinema com as últimas novidades do cinema mundial.')
     ,('Lojas de Departamento', 'Área com diversas lojas de departamento.')
@@ -46,7 +46,7 @@ VALUES ('Praça de Alimentação', 'Área de alimentação com diversas opções
     ,('Boutique', 'Loja com roupas e acessórios de grife.')
     ,('Teatro', 'Espaço para apresentações teatrais e shows musicais.');
 
-INSERT INTO tbSensor (portaSensor)
+INSERT INTO tbSensor (porta_sensor)
 VALUES ('A01')
     ,('B02')
     ,('C03')
