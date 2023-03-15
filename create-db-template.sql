@@ -45,6 +45,18 @@ VALUES ('Praça de Alimentação', 'Área de alimentação com diversas opções
     ,('Pet Shop', 'Loja especializada em produtos e serviços para animais de estimação.')
     ,('Boutique', 'Loja com roupas e acessórios de grife.')
     ,('Teatro', 'Espaço para apresentações teatrais e shows musicais.');
+    
+INSERT INTO tbConfig (tempo_dispersao)
+	VALUES (5), 
+		   (12), 
+           (8), 
+           (17), 
+           (20), 
+           (3), 
+           (10), 
+           (19), 
+           (2), 
+           (15);
 
 INSERT INTO tbSensor (porta_sensor)
 VALUES ('A01')
@@ -59,3 +71,8 @@ VALUES ('A01')
     ,('J10')
     ,('K11')
     ,('L12');
+    
+SELECT * FROM tbUsuario;
+SELECT * FROM tbConfig;
+SELECT * FROM tbAmbiente;
+SELECT * FROM tbSensor;
