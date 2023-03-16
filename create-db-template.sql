@@ -29,10 +29,9 @@ CREATE TABLE tbSensor(
 
 CREATE TABLE tbMetricas (
     idMetrica INT PRIMARY KEY AUTO_INCREMENT
-    ,dateMetrica DATE NOT NULL
+    ,dateMetrica DATETIME NOT NULL
     ,valMetrica FLOAT
 );
-
 
 INSERT INTO tbUsuario (nome_usuario, email_usuario, senha_usuario, telefone_usuario)
 VALUES ('Admin', 'admin@techIdeas.com', 'admin', '(11) 9999-9999')
