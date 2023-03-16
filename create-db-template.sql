@@ -90,3 +90,4 @@ SELECT * FROM tbUsuario;
 SELECT * FROM tbConfig;
 SELECT * FROM tbAmbiente;
 SELECT * FROM tbSensor;
+SELECT * FROM tbmetricas;
