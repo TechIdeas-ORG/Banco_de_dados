@@ -27,6 +27,13 @@ CREATE TABLE tbSensor(
     ,porta_sensor VARCHAR(6) NOT NULL
 );
 
+CREATE TABLE tbMetricas (
+    idMetrica INT PRIMARY KEY AUTO_INCREMENT
+    ,dateMetrica DATE NOT NULL
+    ,valMetrica FLOAT
+);
+
+
 INSERT INTO tbUsuario (nome_usuario, email_usuario, senha_usuario, telefone_usuario)
 VALUES ('Admin', 'admin@techIdeas.com', 'admin', '(11) 9999-9999')
        ,('Itaquera', 'itaquera@shopping.com', 'itaquera123', '(11) 1111-1111')
@@ -71,6 +78,13 @@ VALUES ('A01')
     ,('J10')
     ,('K11')
     ,('L12');
+
+
+INSERT INTO tbmetricas(dateMetrica, valMetrica)
+    VALUES('2023-03-16 06:40:22', 1)
+    ,('2023-03-16 06:40:28', 1)
+    ,('2023-03-16 06:45:22', 1)
+    ,('2023-03-16 06:50:22', 1);
     
 SELECT * FROM tbUsuario;
 SELECT * FROM tbConfig;
