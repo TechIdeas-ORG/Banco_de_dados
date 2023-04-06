@@ -30,3 +30,11 @@ CREATE TABLE tbSensor(
     ,portaSensor VARCHAR(6) NOT NULL
     ,CONSTRAINT fk_tbSensor_idAmbiente FOREIGN KEY (idAmbiente) REFERENCES tbAmbiente(idAmbiente)
 );
+
+CREATE TABLE tbMetricas (
+    idMetrica INT PRIMARY KEY AUTO_INCREMENT
+    ,idSensor INT
+    ,dateMetrica DATETIME NOT NULL
+    ,valMetrica FLOAT
+    ,CONSTRAINT fk_tbMetricas_idSensor FOREIGN KEY (idSensor) REFERENCES tbSensor(idSensor)
+);
