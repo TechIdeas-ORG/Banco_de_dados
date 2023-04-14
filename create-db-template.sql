@@ -44,7 +44,6 @@ CREATE TABLE tbAmbiente(
     ,fkEmpresa INT
     ,nomeAmbiente VARCHAR(50)
     ,descAmbiente VARCHAR(150)
-    ,setorAmbiente INT
     ,CONSTRAINT fk_tbAmbiente_tbSetor FOREIGN KEY (fkSetor) REFERENCES tbSetor(idSetor)
     ,CONSTRAINT fk_tbAmbiente_tbConfig FOREIGN KEY (fkConfig) REFERENCES tbConfig(idConfig)
     ,CONSTRAINT fk_tbAmbiente_tbEmpresa FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
@@ -124,33 +123,20 @@ VALUES
 
 INSERT INTO tbConfig (tempoDispersao) VALUES (5),(5),(5),(30),(30),(60),(90),(10),(10),(10);
 
-INSERT INTO tbAmbiente (`idConfig`, `idSetor`, `nomeAmbiente`, `descAmbiente`) 
+INSERT INTO tbAmbiente (`idConfig`, `idSetor`, `fkEmpresa`, `nomeAmbiente`, `descAmbiente`) 
 VALUES 
-   (1, 1, 'Loja de Roupa 1', 'Ambiente para lojas de roupas femininas')
-    ,(2, 1, 'Loja de Roupa 2', 'Ambiente para lojas de roupas masculinas')
-    ,(3, 1, 'Loja de Roupa 3', 'Ambiente para lojas de roupas infantis')
-    ,(4, 15, 'Fast Food', 'Ambiente para estabelecimentos de fast food')
-    ,(5, 15, 'Restaurantes', 'Ambiente para restaurantes')
-    ,(6, 8, 'Parque de Diversões', 'Ambiente para o parque de diversões')
-    ,(7, 16, 'Salas de Cinema', 'Ambiente para salas de cinema')
-    ,(8, 2, 'Lojas de Calçados', 'Ambiente para lojas de calçados')
-    ,(9, 3, 'Lojas de Acessórios', 'Ambiente para lojas de acessórios')
-    ,(10, 9, 'Lojas de Eletrônicos', 'Ambiente para lojas de eletrônicos')
-    ,(11, 9, 'Lojas de Eletrodomésticos', 'Ambiente para lojas de eletrodomésticos');
+   (1, 1, 1, 'Loja de Roupa 1', 'Ambiente para lojas de roupas femininas')
+    ,(2, 1, 1, 'Loja de Roupa 2', 'Ambiente para lojas de roupas masculinas')
+    ,(3, 1, 1, 'Loja de Roupa 3', 'Ambiente para lojas de roupas infantis')
+    ,(4, 15, 1, 'Fast Food', 'Ambiente para estabelecimentos de fast food')
+    ,(5, 15, 1, 'Restaurantes', 'Ambiente para restaurantes')
+    ,(6, 8, 1, 'Parque de Diversões', 'Ambiente para o parque de diversões')
+    ,(7, 16, 2 'Salas de Cinema', 'Ambiente para salas de cinema')
+    ,(8, 2, 2, 'Lojas de Calçados', 'Ambiente para lojas de calçados')
+    ,(9, 3, 2, 'Lojas de Acessórios', 'Ambiente para lojas de acessórios')
+    ,(10, 9, 2, 'Lojas de Eletrônicos', 'Ambiente para lojas de eletrônicos')
+    ,(11, 9, 2, 'Lojas de Eletrodomésticos', 'Ambiente para lojas de eletrodomésticos');
 
-INSERT INTO tbambiente_tbusuario (`idAmbiente`, `idUsuario`)
-VALUES 
-    (1, 1)
-    ,(2, 1)
-    ,(3, 1)
-    ,(4, 1)
-    ,(5, 1)
-    ,(6, 2)
-    ,(7, 2)
-    ,(8, 2)
-    ,(9, 2)
-    ,(10, 2)
-    ,(11, 2);
 
 INSERT INTO tbSensor (`idAmbiente`, `portaSensor`)
 VALUES
