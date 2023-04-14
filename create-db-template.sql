@@ -10,24 +10,6 @@ CREATE TABLE tbToken(
     ,tokenHash VARCHAR(64) UNIQUE
 );
 
-CREATE TABLE tbEmpresa (
-    idEmpresa INT PRIMARY KEY AUTO_INCREMENT
-    ,idToken INT
-    ,nomeEmpresa VARCHAR(50) NOT NULL
-    ,emailEmpresa VARCHAR(100) NOT NULL
-    ,senhaEmpresa VARCHAR(64) NOT NULL
-    ,cnpjEmpresa VARCHAR(18) NOT NULL
-    ,CONSTRAINT fk_tbEmpresa_idToken FOREIGN KEY (idToken) REFERENCES tbToken(idToken)
-);
-
-CREATE TABLE tbUsuario(
-    idUsuario INT PRIMARY KEY AUTO_INCREMENT
-    ,idEmpresa INT
-    ,nomeUsuario VARCHAR(50) NOT NULL
-    ,emailUsuario VARCHAR(100) NOT NULL UNIQUE
-    ,senhaUsuario VARCHAR(64) NOT NULL
-    ,CONSTRAINT fk_tbUsuario_idEmpresa FOREIGN KEY (idEmpresa) REFERENCES tbEmpresa(idEmpresa)
-);
 
 CREATE TABLE tbConfig(
     idConfig INT PRIMARY KEY AUTO_INCREMENT
@@ -50,14 +32,6 @@ CREATE TABLE tbAmbiente(
     ,CONSTRAINT fk_tbAmbiente_idConfig FOREIGN KEY (idConfig) REFERENCES tbConfig(idConfig)
 );
 
-CREATE TABLE tbAmbiente_tbUsuario(
-    idAmbiente_tbUsuario INT PRIMARY KEY AUTO_INCREMENT
-    ,idAmbiente INT
-    ,idUsuario INT
-    ,CONSTRAINT fk_tbAmbiente_tbUsuario_idAmbiente FOREIGN KEY (idAmbiente) REFERENCES tbAmbiente(idAmbiente)
-    ,CONSTRAINT fk_tbAmbiente_tbUsuario_idUsuario FOREIGN KEY (idUsuario) REFERENCES tbUsuario(idUsuario)
-);
-
 
 CREATE TABLE tbSensor(
     idSensor INT PRIMARY KEY AUTO_INCREMENT
@@ -74,22 +48,40 @@ CREATE TABLE tbMetricas (
     ,CONSTRAINT fk_tbMetricas_idSensor FOREIGN KEY (idSensor) REFERENCES tbSensor(idSensor)
 );
 
+CREATE TABLE tbEmpresa (
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT
+    ,fkToken INT
+    ,fkAmbiente INT
+    ,nomeEmpresa VARCHAR(50) NOT NULL
+    ,cnpjEmpresa VARCHAR(18) NOT NULL
+    ,CONSTRAINT fk_tbEmpresa_tbToken FOREIGN KEY (fkToken) REFERENCES tbToken(idToken)
+    ,CONSTRAINT fk_tbEmpresa_tbAmbiente FOREIGN KEY (fkAmbiente) REFERENCES tbAmbiente(idAmbiente)
+);
+
+CREATE TABLE tbUsuario(
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT
+    ,fkEmpresa INT
+    ,nomeUsuario VARCHAR(50) NOT NULL
+    ,emailUsuario VARCHAR(100) NOT NULL UNIQUE
+    ,senhaUsuario VARCHAR(64) NOT NULL
+    ,CONSTRAINT fk_tbUsuario_tbEmpresa FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
+);
 /* INSERTS */
 
 /* GENERATE TOKEN */
 INSERT INTO tbToken(tokenHash)
     VALUES (SHA2(UUID(), 256));
 
-INSERT INTO tbEmpresa(idToken, nomeEmpresa, emailEmpresa, senhaEmpresa, cnpjEmpresa)
+INSERT INTO tbEmpresa(idToken, nomeEmpresa, cnpjEmpresa)
 VALUES
-    (1, 'Shopping A', 'shopping_a@exemplo.com', SHA2('senha123', 256), '11.111.111/0001-11')
-    ,(2, 'Shopping B', 'shopping_b@exemplo.com', SHA2('senha456', 256), '22.222.222/0001-22')
-    ,(3, 'Shopping C', 'shopping_c@exemplo.com', SHA2('senha789', 256), '33.333.333/0001-33')
-    ,(4, 'Shopping D', 'shopping_d@exemplo.com', SHA2('senhaabc', 256), '44.444.444/0001-44')
-    ,(5, 'Shopping E', 'shopping_e@exemplo.com', SHA2('senhaxyz', 256), '55.555.555/0001-55')
-    ,(6, 'Shopping F', 'shopping_f@exemplo.com', SHA2('senha123', 256), '66.666.666/0001-66')
-    ,(7, 'Shopping G', 'shopping_g@exemplo.com', SHA2('senha456', 256), '77.777.777/0001-77')
-    ,(8, 'Shopping H', 'shopping_h@exemplo.com', SHA2('senha789', 256), '88.888.888/0001-88');
+    (1, 'Shopping A', '11.111.111/0001-11')
+    ,(2, 'Shopping B', '22.222.222/0001-22')
+    ,(3, 'Shopping C', '33.333.333/0001-33')
+    ,(4, 'Shopping D', '44.444.444/0001-44')
+    ,(5, 'Shopping E', '55.555.555/0001-55')
+    ,(6, 'Shopping F', '66.666.666/0001-66')
+    ,(7, 'Shopping G', '77.777.777/0001-77')
+    ,(8, 'Shopping H', '88.888.888/0001-88');
 
 INSERT INTO tbUsuario (`idEmpresa`,`nomeUsuario`,`emailUsuario`,`senhaUsuario`)
 VALUES
