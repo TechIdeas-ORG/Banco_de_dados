@@ -10,6 +10,22 @@ CREATE TABLE tbToken(
     ,tokenHash VARCHAR(64) UNIQUE
 );
 
+CREATE TABLE tbEmpresa (
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT
+    ,fkToken INT
+    ,nomeEmpresa VARCHAR(50) NOT NULL
+    ,cnpjEmpresa VARCHAR(18) NOT NULL
+    ,CONSTRAINT fk_tbEmpresa_tbToken FOREIGN KEY (fkToken) REFERENCES tbToken(idToken)
+);
+
+CREATE TABLE tbUsuario(
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT
+    ,fkEmpresa INT
+    ,nomeUsuario VARCHAR(50) NOT NULL
+    ,emailUsuario VARCHAR(100) NOT NULL UNIQUE
+    ,senhaUsuario VARCHAR(64) NOT NULL
+    ,CONSTRAINT fk_tbUsuario_tbEmpresa FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
+);
 
 CREATE TABLE tbConfig(
     idConfig INT PRIMARY KEY AUTO_INCREMENT
@@ -23,13 +39,15 @@ CREATE TABLE tbSetor(
 
 CREATE TABLE tbAmbiente(
     idAmbiente INT PRIMARY KEY AUTO_INCREMENT
-    ,idSetor INT
+    ,fkSetor INT
+    ,fkConfig INT
+    ,fkEmpresa INT
     ,nomeAmbiente VARCHAR(50)
     ,descAmbiente VARCHAR(150)
     ,setorAmbiente INT
-    ,idConfig INT 
-    ,CONSTRAINT fk_tbAmbiente_idSetor FOREIGN KEY (idSetor) REFERENCES tbSetor(idSetor)
-    ,CONSTRAINT fk_tbAmbiente_idConfig FOREIGN KEY (idConfig) REFERENCES tbConfig(idConfig)
+    ,CONSTRAINT fk_tbAmbiente_tbSetor FOREIGN KEY (fkSetor) REFERENCES tbSetor(idSetor)
+    ,CONSTRAINT fk_tbAmbiente_tbConfig FOREIGN KEY (fkConfig) REFERENCES tbConfig(idConfig)
+    ,CONSTRAINT fk_tbAmbiente_tbEmpresa FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
 );
 
 
@@ -48,24 +66,6 @@ CREATE TABLE tbMetricas (
     ,CONSTRAINT fk_tbMetricas_idSensor FOREIGN KEY (idSensor) REFERENCES tbSensor(idSensor)
 );
 
-CREATE TABLE tbEmpresa (
-    idEmpresa INT PRIMARY KEY AUTO_INCREMENT
-    ,fkToken INT
-    ,fkAmbiente INT
-    ,nomeEmpresa VARCHAR(50) NOT NULL
-    ,cnpjEmpresa VARCHAR(18) NOT NULL
-    ,CONSTRAINT fk_tbEmpresa_tbToken FOREIGN KEY (fkToken) REFERENCES tbToken(idToken)
-    ,CONSTRAINT fk_tbEmpresa_tbAmbiente FOREIGN KEY (fkAmbiente) REFERENCES tbAmbiente(idAmbiente)
-);
-
-CREATE TABLE tbUsuario(
-    idUsuario INT PRIMARY KEY AUTO_INCREMENT
-    ,fkEmpresa INT
-    ,nomeUsuario VARCHAR(50) NOT NULL
-    ,emailUsuario VARCHAR(100) NOT NULL UNIQUE
-    ,senhaUsuario VARCHAR(64) NOT NULL
-    ,CONSTRAINT fk_tbUsuario_tbEmpresa FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
-);
 /* INSERTS */
 
 /* GENERATE TOKEN */
