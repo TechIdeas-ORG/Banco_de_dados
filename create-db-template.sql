@@ -43,7 +43,7 @@ CREATE TABLE tbAmbiente(
     ,descAmbiente VARCHAR(150)
     ,CONSTRAINT fk_tbAmbiente_tbEmpresa FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
     ,CONSTRAINT fk_tbAmbiente_tbSetor FOREIGN KEY (fkSetor) REFERENCES tbSetor(idSetor)
-    ,PRIMARY KEY(idAmbiente, fkEmpresa)
+    ,PRIMARY KEY(idAmbiente, fkEmpresa, fkSetor)
 );
 
 CREATE TABLE tbSensor(
