@@ -35,7 +35,7 @@ CREATE TABLE tbSetor(
 );
 
 CREATE TABLE tbAmbiente(
-    idAmbiente INT
+    idAmbiente INT AUTO_INCREMENT
     ,fkEmpresa INT
     ,fkSetor INT
     ,tempoDispersao INT
@@ -47,26 +47,20 @@ CREATE TABLE tbAmbiente(
 );
 
 CREATE TABLE tbSensor(
-    idSensor INT
+    idSensor INT AUTO_INCREMENT
     ,fkAmbiente INT
-    ,fkEmpresa INT
     ,portaSensor VARCHAR(6) NOT NULL
     ,CONSTRAINT fk_tbSensor_fkAmbiente FOREIGN KEY (fkAmbiente) REFERENCES tbAmbiente(idAmbiente)
-    ,CONSTRAINT fk_tbSensor_tbEmpresa FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
-    ,PRIMARY KEY(idSensor, fkAmbiente, fkEmpresa)
+    ,PRIMARY KEY(idSensor, fkAmbiente)
 );
 
 CREATE TABLE tbMetricas (
-    idMetrica INT
+    idMetrica INT AUTO_INCREMENT
     ,fkSensor INT
-    ,fkAmbiente INT
-    ,fkEmpresa INT
     ,dateMetrica TIMESTAMP NOT NULL
     ,valMetrica INT
     ,CONSTRAINT fk_tbMetricas_fkSensor FOREIGN KEY (fkSensor) REFERENCES tbSensor(idSensor)
-    ,CONSTRAINT fk_tbMetricas_fkAmbiente FOREIGN KEY (fkAmbiente) REFERENCES tbAmbiente(idAmbiente)
-    ,CONSTRAINT fk_tbMetricas_tbEmpresa FOREIGN KEY (fkEmpresa) REFERENCES tbEmpresa(idEmpresa)
-    ,PRIMARY KEY(idMetrica, fkSensor, fkAmbiente, fkEmpresa)
+    ,PRIMARY KEY(idMetrica, fkSensor)
 );
 
 /* INSERTS */
@@ -131,48 +125,48 @@ VALUES
     ,('Fast-food')
     ,('Cinema');
 
-INSERT INTO tbAmbiente (`fkEmpresa`, `idAmbiente`, `fkSetor`, `tempoDispersao`, `nomeAmbiente`, `descAmbiente`) 
+INSERT INTO tbAmbiente (`fkEmpresa`, `fkSetor`, `tempoDispersao`, `nomeAmbiente`, `descAmbiente`) 
 VALUES 
-   (1, 1,  1, 30, 'Loja de Roupa 1', 'Ambiente para lojas de roupas femininas')
-    ,(1, 2, 1, 25, 'Loja de Roupa 2', 'Ambiente para lojas de roupas masculinas')
-    ,(2, 1, 1, 28, 'Loja de Roupa 3', 'Ambiente para lojas de roupas infantis')
-    ,(2, 2, 15, 10, 'Fast Food', 'Ambiente para estabelecimentos de fast food')
-    ,(3, 1, 14, 60, 'Restaurantes', 'Ambiente para restaurantes')
-    ,(3, 2, 8, 120, 'Parque de Diversões', 'Ambiente para o parque de diversões')
-    ,(4, 1, 16, 120, 'Salas de Cinema', 'Ambiente para salas de cinema')
-    ,(4, 2, 2, 18, 'Lojas de Calçados', 'Ambiente para lojas de calçados')
-    ,(5, 1, 3, 13, 'Lojas de Acessórios', 'Ambiente para lojas de acessórios')
-    ,(5, 2, 9, 10, 'Lojas de Eletrônicos', 'Ambiente para lojas de eletrônicos')
-    ,(6, 1, 11, 12,'Lojas de Eletrodomésticos', 'Ambiente para lojas de eletrodomésticos');
+   (1,  1, 30, 'Loja de Roupa 1', 'Ambiente para lojas de roupas femininas')
+    ,(1, 1, 25, 'Loja de Roupa 2', 'Ambiente para lojas de roupas masculinas')
+    ,(2, 1, 28, 'Loja de Roupa 3', 'Ambiente para lojas de roupas infantis')
+    ,(2, 15, 10, 'Fast Food', 'Ambiente para estabelecimentos de fast food')
+    ,(3, 14, 60, 'Restaurantes', 'Ambiente para restaurantes')
+    ,(3, 8, 120, 'Parque de Diversões', 'Ambiente para o parque de diversões')
+    ,(4, 16, 120, 'Salas de Cinema', 'Ambiente para salas de cinema')
+    ,(4, 2, 18, 'Lojas de Calçados', 'Ambiente para lojas de calçados')
+    ,(5, 3, 13, 'Lojas de Acessórios', 'Ambiente para lojas de acessórios')
+    ,(5, 9, 10, 'Lojas de Eletrônicos', 'Ambiente para lojas de eletrônicos')
+    ,(6, 11, 12,'Lojas de Eletrodomésticos', 'Ambiente para lojas de eletrodomésticos');
 
 
-INSERT INTO tbSensor (`fkEmpresa`, `fkAmbiente`, `idSensor`, `portaSensor`)
+INSERT INTO tbSensor (`fkAmbiente`, `portaSensor`)
 VALUES
-    (1, 1, 1, 'COM1')
-    ,(1, 2, 1, 'COM2')
-    ,(2, 1, 1, 'COM3')
-    ,(2, 2, 1, 'COM4')
-    ,(3, 1, 1, 'COM5')
-    ,(3, 2, 1, 'COM6')
-    ,(4, 1, 1, 'COM7')
-    ,(4, 2, 1, 'COM8')
-    ,(5, 1, 1, 'COM9')
-    ,(5, 2, 1, 'COM10')
-    ,(6, 1, 1, 'COM11');
+    (1, 'COM1')
+    ,(2, 'COM2')
+    ,(3, 'COM3')
+    ,(4, 'COM4')
+    ,(5, 'COM5')
+    ,(6, 'COM6')
+    ,(7, 'COM7')
+    ,(8, 'COM8')
+    ,(9, 'COM9')
+    ,(10, 'COM10')
+    ,(11, 'COM11');
 
-INSERT INTO tbMetricas (`fkEmpresa`, `fkAmbiente`, `fkSensor`, `idMetrica`, `dateMetrica`, `valMetrica`)
+INSERT INTO tbMetricas (`fkSensor`, `dateMetrica`, `valMetrica`)
 VALUES
-    (1, 1, 1, 1, NOW(), 1)
-    ,(1, 2, 1, 1, NOW(), 1)
-    ,(2, 1, 1, 1, NOW(), 1)
-    ,(2, 2, 1, 1, NOW(), 1)
-    ,(3, 1, 1, 1, NOW(), 1)
-    ,(3, 2, 1, 1, NOW(), 1)
-    ,(4, 1, 1, 1, NOW(), 1)
-    ,(4, 2, 1, 1, NOW(), 1)
-    ,(5, 1, 1, 1, NOW(), 1)
-    ,(5, 2, 1, 1, NOW(), 1)
-    ,(6, 1, 1, 1, NOW(), 1);
+    (1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1)
+    ,(1, NOW(), 1);
 
     
 /* SELECTS */
@@ -193,9 +187,11 @@ SELECT tbUsuario.`nomeUsuario`, tbUsuario.`emailUsuario`, tbEmpresa.`nomeEmpresa
 
 /* VALOR E DATA DAS METRICAS DO SENSOR QUE ESTÁ NO AMBIENTE 'Loja de Roupa 1' DA EMPRESA 'Shopping A' */
 SELECT tbMetricas.`valMetrica`, tbMetricas.`dateMetrica` 
-    FROM tbMetricas INNER JOIN tbAmbiente
-        ON tbMetricas.`fkAmbiente` = tbAmbiente.`idAmbiente`
+    FROM tbMetricas INNER JOIN tbSensor
+        ON tbMetricas.`fkSensor` = tbSensor.`idSensor`
+    INNER JOIN tbAmbiente
+        ON tbSensor.`fkAmbiente` = tbAmbiente.`idAmbiente`
     INNER JOIN tbEmpresa
-        ON tbMetricas.`fkEmpresa` = tbEmpresa.`idEmpresa`
+        ON tbAmbiente.`fkEmpresa` = tbEmpresa.`idEmpresa`
     WHERE tbAmbiente.`nomeAmbiente` = 'Loja de Roupa 1' AND
         tbEmpresa.`nomeEmpresa` = 'Shopping A';
