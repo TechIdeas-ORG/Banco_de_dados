@@ -195,3 +195,6 @@ SELECT tbMetricas.`valMetrica`, tbMetricas.`dateMetrica`
         ON tbAmbiente.`fkEmpresa` = tbEmpresa.`idEmpresa`
     WHERE tbAmbiente.`nomeAmbiente` = 'Loja de Roupa 1' AND
         tbEmpresa.`nomeEmpresa` = 'Shopping A';
+SELECT idToken, count(idEmpresa) FROM tbToken
+    INNER JOIN tbEmpresa ON fkToken = idEmpresa AND fkToken = idToken
+    WHERE tokenHash = '43785e89508865813596518a211809f5606532c11aa54314f379814c3b360e90';
